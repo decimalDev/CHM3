@@ -29,7 +29,7 @@ Vector LU(Matrix& A, Vector& Y)
 			{
 				s += L.getelement(i, k) * U.getelement(k, j);
 			}
-			L.setelement(i, j, 1 / U.getelement(j, j) * (B.getelement(i, j) - s));
+			L.setelement(i, j, (1 / U.getelement(j, j)) * (B.getelement(i, j) - s));
 		}
 		for (int j = i; j <= N; j++)
 		{
@@ -41,13 +41,14 @@ Vector LU(Matrix& A, Vector& Y)
 			U.setelement(i, j, B.getelement(i, j) - s);
 		}
 	}
+	cout << "L: " << endl;
 	L.print();
-	cout << "\n";
+	cout << endl << "U: " << endl;
 	U.print();
 	cout << "\n";
-	
+
 	Vector Lsol(N);
-	Lsol.setelement(1, D.getelement(1) / L.getelement(1, 1));
+	Lsol.setelement(1, D.getelement(1));
 	for (int j = 2; j <= N; j++)
 	{
 		double s = 0;
@@ -55,11 +56,11 @@ Vector LU(Matrix& A, Vector& Y)
 		{
 			s += L.getelement(j, k) * Lsol.getelement(k);
 		}
-		Lsol.setelement(j, (1 / L.getelement(j, j) * (D.getelement(j) - s)));
+		Lsol.setelement(j, ((D.getelement(j) - s)));
 	}
 
 	Vector Usol(N);
-	Usol.setelement(N, Lsol.getelement(N));
+	Usol.setelement(N, Lsol.getelement(N) / U.getelement(N, N));
 	for (int k = N - 1; k >= 1; k--)
 	{
 		double s = 0;
@@ -67,13 +68,12 @@ Vector LU(Matrix& A, Vector& Y)
 		{
 			s += U.getelement(k, j) * Usol.getelement(j);
 		}
-		Usol.setelement(k, (1/(U.getelement(k, k)) * (Lsol.getelement(k) - s)));
+		Usol.setelement(k, (1 / (U.getelement(k, k)) * (Lsol.getelement(k) - s)));
 	}
 	Usol.print();
 
 	return Usol;
 }
-
 
 
 vector<Vector> RatInterpolLU(vector<double> Grid, vector<double> GridValues, int p)
@@ -161,4 +161,8 @@ int RatInterpolOptLU(vector<double> Grid, vector<double> GridValues, int p)
 	}
 	fout.close();
 	return 0;
+}
+
+void draw() {
+
 }

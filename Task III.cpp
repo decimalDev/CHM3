@@ -1,4 +1,5 @@
 #include "Task III.h"
+#include<functional>
 
 double sgn(double x)
 {
@@ -74,4 +75,70 @@ Vector SRM(Matrix& A, Vector& Y) //дана система AX = Y
 
 	return Xi;
 
+}
+
+double expression(double x) { //функция из варианта
+	return exp(x) / (1 + x * x);
+}
+
+double expression_with_x(double x,int k) { //функция из варианта
+	return exp(x)*std::pow(x,k) / (1 + x * x);
+}
+
+double Integral_x(int m,int n, double a,double b) {
+	return (std::pow(b, m + n + 1) - std::pow(a, m + n + 1)) / (m + n + 1);
+}
+//template<typename Func>
+//double simpson(Func expr, double a, double b, int n) {
+double simpson(std::tr1::function<double(double)> expr, double a, double b, int n) {
+
+	if (n % 2 == 1) {
+		//std::cout << "error" << std::endl;
+		//return 0;
+		n--;
+	}
+	double h = (b - a) / n;
+	std::vector<double> func;
+	double S = expr(a);
+	for (int i = 1; i < n; i += 2) {
+		S += 4 * (expr(a + h * i));
+	}
+
+	for (int i = 2; i < n; i += 2) {
+		S += 2 * (expr(a + h * i));
+	}
+	S += expr(b);
+	return (S * h / 3);
+}
+
+int _pow = 0;
+double expression_with_xp(double x) { //функция из варианта
+	return exp(x) * std::pow(x, _pow) / (1 + x * x);
+}
+
+Vector Least_Squares_Method(std::vector<double> nodes,double a,double b,int n) {
+	std::vector<std::vector<double>> A;
+	std::vector<double> temp;
+	for (int i = 0; i <= n; i++) {
+		temp.clear();
+		for (int j = 0; j <= n; j++)
+			temp.push_back(Integral_x(i,j,a,b));
+		A.push_back(temp);
+	}
+	std::vector<double> B;
+	for (int i = 0; i <= n; i++) {
+		_pow = i;
+		B.push_back(simpson(expression_with_xp,0, 2, n));
+	}
+
+	Matrix left_side_of_equations(A);
+	Vector right_side_of_equations(B);
+	return SRM(left_side_of_equations, right_side_of_equations);
+
+}
+double Aproximation(double x,Vector coef) {
+	double sum = 0;
+	for (int i = 0; i < coef.getrows(); i++)
+		sum += coef.getelement(i + 1) * std::pow(x, i);
+	return sum;
 }

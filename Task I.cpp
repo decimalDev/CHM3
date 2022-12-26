@@ -32,8 +32,9 @@ Vector Gauss(Matrix& A, Vector& Y)
 			B.permutation(j, dux_row);
 			D.permutation(j, dux_row);
 		}
+		double b = B.getelement(j, j);
 		B.scalar(j, 1 / B.getelement(j, j)); //нормируем текущую строку
-		D.scalar(j, 1 / B.getelement(j, j)); //нормируем вектор решений
+		D.scalar(j, 1 / b); //нормируем вектор решений
 		for (int i = j + 1; i <= N; i++) //вычитаем текущую строку из всех последующих с нормировкой
 		{
 			double b = B.getelement(i, j);
@@ -44,8 +45,9 @@ Vector Gauss(Matrix& A, Vector& Y)
 	D.setelement(N, D.getelement(N) / B.getelement(N, N)); //на последней итерации нормируем последнюю строку -- таковая состоит из единственного ненулевого элемента B(n;n)
 	B.setelement(N, N, 1.0);
 
+	cout << "Upper triangular matrix:" << endl;
 	B.print();
-	cout << "\n";
+	cout << endl << "Vector:" << endl;
 	D.print();
 	cout << "\n";
 
