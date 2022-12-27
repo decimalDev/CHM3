@@ -1,5 +1,4 @@
 #include "Task III.h"
-#include<functional>
 
 double sgn(double x)
 {
@@ -8,12 +7,18 @@ double sgn(double x)
 	else return 1;
 }
 
+double f_test(double x)
+{
+	return cbrt(x + 1) + 1;
+}
+
+double expression(double x)
+{
+	return(exp(x) / (1 + x * x));
+}
+
 Vector SRM(Matrix& A, Vector& Y) //дана система AX = Y
 {
-	if (A.getcolumns() != A.getrows()) //работаем только с квадратными матрицами
-	{
-		throw "\n Your matrix is not quadratic. \n";
-	}
 	if (Y.getrows() != A.getcolumns()) //проверяем согласованность матрицы и вектора
 	{
 		throw "\n Wrong values vector. \n";
@@ -77,68 +82,131 @@ Vector SRM(Matrix& A, Vector& Y) //дана система AX = Y
 
 }
 
-double expression(double x) { //функция из варианта
-	return exp(x) / (1 + x * x);
-}
-
-double expression_with_x(double x,int k) { //функция из варианта
-	return exp(x)*std::pow(x,k) / (1 + x * x);
-}
-
-double Integral_x(int m,int n, double a,double b) {
-	return (std::pow(b, m + n + 1) - std::pow(a, m + n + 1)) / (m + n + 1);
-}
-//template<typename Func>
-//double simpson(Func expr, double a, double b, int n) {
-double simpson(std::tr1::function<double(double)> expr, double a, double b, int n) {
-
-	if (n % 2 == 1) {
-		//std::cout << "error" << std::endl;
-		//return 0;
-		n--;
+double scalar_product(std::tr1::function<double(double)> f, std::tr1::function<double(double)> g, vector<double> Grid)
+{
+	double s = 0;
+	for (double x : Grid)
+	{
+		s += f(x) * g(x);
 	}
-	double h = (b - a) / n;
-	std::vector<double> func;
-	double S = expr(a);
-	for (int i = 1; i < n; i += 2) {
-		S += 4 * (expr(a + h * i));
-	}
-
-	for (int i = 2; i < n; i += 2) {
-		S += 2 * (expr(a + h * i));
-	}
-	S += expr(b);
-	return (S * h / 3);
+	return s;
 }
 
-int _pow = 0;
-double expression_with_xp(double x) { //функция из варианта
-	return exp(x) * std::pow(x, _pow) / (1 + x * x);
+double scalar_product_polynomes(int n, int m, vector<double> Grid)
+{
+	double s = 0;
+	for (double x : Grid)
+	{
+		s += pow(x, m) * pow(x, n);
+	}
+	return s;
 }
 
-Vector Least_Squares_Method(std::vector<double> nodes,double a,double b,int n) {
-	std::vector<std::vector<double>> A;
-	std::vector<double> temp;
-	for (int i = 0; i <= n; i++) {
-		temp.clear();
-		for (int j = 0; j <= n; j++)
-			temp.push_back(Integral_x(i,j,a,b));
-		A.push_back(temp);
+double scalar_product_func_and_polynome(std::tr1::function<double(double)> f, int m, vector<double> Grid)
+{
+	double s = 0;
+	for (double x : Grid)
+	{
+		s += f(x) * pow(x, m);
 	}
-	std::vector<double> B;
-	for (int i = 0; i <= n; i++) {
-		_pow = i;
-		B.push_back(simpson(expression_with_xp,0, 2, n));
-	}
+	return s;
+}
 
-	Matrix left_side_of_equations(A);
-	Vector right_side_of_equations(B);
-	return SRM(left_side_of_equations, right_side_of_equations);
+//строим вектор коэффициентов
+Vector SRMApprox_coeffs(vector<double> Grid, int n, std::tr1::function<double(double)> f) //Grid -- сетка, n -- максимальная степень многочленов в базисе
+{
+	int n_mod = n + 1;
+	int N = Grid.size(); //число точек в сетке
+	Matrix A(n_mod, n_mod);
+	Vector Y(n_mod);
+	for (int i = 1; i <= n_mod; i++)
+	{
+		Y.setelement(i, scalar_product_func_and_polynome(f, i - 1, Grid));
+		for (int j = 1; j <= i; j++)
+		{
+			double a = scalar_product_polynomes(i - 1, j - 1, Grid);
+			A.setelement(i, j, a);
+			A.setelement(j, i, a);
+		}
+	}
+	Vector X = SRM(A, Y);
+	return X;
 
 }
-double Aproximation(double x,Vector coef) {
-	double sum = 0;
-	for (int i = 0; i < coef.getrows(); i++)
-		sum += coef.getelement(i + 1) * std::pow(x, i);
-	return sum;
+
+//возвращаем значение аппроксимирующей функции в заданной точке
+double SRM_Approx_val(double x, vector<double> Grid, int n, std::tr1::function<double(double)> f)
+{
+	int N = Grid.size();
+	Vector A = SRMApprox_coeffs(Grid, n, f);
+	double s = 0;
+	for (int i = 1; i <= n + 1; i++)
+	{
+		s += A.getelement(i) * pow(x, i - 1);
+	}
+	return s;
+
+}
+
+double SRM_Approx(vector<double> Grid, int n, std::tr1::function<double(double)> f)
+{
+	string FileName = "C:/Users/student/Desktop/SRM_Approx/SRM_Approx_with_n_";
+	FileName += to_string(n);
+	FileName += ".txt";
+	ofstream fout;
+	fout.open(FileName, ios::out);
+
+	double h = (Grid[Grid.size() - 1] - Grid[0]) / 1000;
+	double x = 0, appr, exact, div;
+	double div_max = -h;
+	fout.setf(ios::fixed);
+	fout.precision(10);
+
+	for (int i = 0; i <= 1000; i++)
+	{
+		x += h;
+		appr = SRM_Approx_val(x, Grid, n, f);
+		exact = f(x);
+		div = abs(appr - exact);
+		if (div > div_max) div_max = div;
+		fout << x << "\t" << appr << "\t" << exact << "\t" << div << endl;
+	}
+
+	div = 0;
+	for (double x : Grid)
+	{
+		appr = SRM_Approx_val(x, Grid, n, f);
+		exact = f(x);
+		div += abs(appr - exact) * abs(appr - exact);
+	}
+
+	fout << "div_max: " << div_max;
+	fout.close();
+	return div;
+}
+
+void task_3_2()
+{
+	vector<double> Grid;
+	double h = 0.1;
+	double x = -h;
+	for (int i = 0; i <= 20; i++)
+	{
+		x += h;
+		Grid.push_back(x);
+	}
+
+	double appr_min = 1;
+	int n_opt;
+	double appr_cur;
+	for (int n = 1; n <= 12; n++)
+	{
+		appr_cur = SRM_Approx(Grid, n, expression);
+		if (appr_cur < appr_min) {
+			n_opt = n;
+			appr_min = appr_cur;
+		}
+	}
+	cout << "optimal n equals " << n_opt;
+
 }

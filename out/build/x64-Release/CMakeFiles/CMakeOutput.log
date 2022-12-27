@@ -1,16 +1,16 @@
-The system is: Windows - 10.0.19045 - AMD64
+The system is: Windows - 10.0.19044 - AMD64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe 
+Compiler: C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.31.31103/bin/Hostx64/x64/cl.exe 
 Build flags: 
 Id flags:  
 
 The output was:
 0
-Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.29.30136 для x64
+Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.31.31104 для x64
 (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
 
 CMakeCCompilerId.c
-Microsoft (R) Incremental Linker Version 14.29.30136.0
+Microsoft (R) Incremental Linker Version 14.31.31104.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /out:CMakeCCompilerId.exe 
@@ -21,20 +21,20 @@ Compilation of the C compiler identification source "CMakeCCompilerId.c" produce
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
 
-The C compiler identification is MSVC, found in "C:/Users/Hp/Desktop/files/studing/third year/fifth semester/числаки/лабы/vs/lab3new/lab3/out/build/x64-Release/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdC/CMakeCCompilerId.exe"
+The C compiler identification is MSVC, found in "C:/Users/student/Desktop/temp/CHM3-master/out/build/x64-Release/CMakeFiles/3.22.22022201-MSVC_2/CompilerIdC/CMakeCCompilerId.exe"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe 
+Compiler: C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Tools/MSVC/14.31.31103/bin/Hostx64/x64/cl.exe 
 Build flags: 
 Id flags:  
 
 The output was:
 0
-Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.29.30136 для x64
+Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.31.31104 для x64
 (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
 
 CMakeCXXCompilerId.cpp
-Microsoft (R) Incremental Linker Version 14.29.30136.0
+Microsoft (R) Incremental Linker Version 14.31.31104.0
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /out:CMakeCXXCompilerId.exe 
@@ -45,21 +45,21 @@ Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" p
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
 
-The CXX compiler identification is MSVC, found in "C:/Users/Hp/Desktop/files/studing/third year/fifth semester/числаки/лабы/vs/lab3new/lab3/out/build/x64-Release/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.exe"
+The CXX compiler identification is MSVC, found in "C:/Users/student/Desktop/temp/CHM3-master/out/build/x64-Release/CMakeFiles/3.22.22022201-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.exe"
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: C:/Users/Hp/Desktop/files/studing/third year/fifth semester/числаки/лабы/vs/lab3new/lab3/out/build/x64-Release/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/student/Desktop/temp/CHM3-master/out/build/x64-Release/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_aaa6c && [1/2] Building C object CMakeFiles\cmTC_aaa6c.dir\CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_aaa6c.exe
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Professional/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_3c684 && [1/2] Building C object CMakeFiles\cmTC_3c684.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_3c684.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: C:/Users/Hp/Desktop/files/studing/third year/fifth semester/числаки/лабы/vs/lab3new/lab3/out/build/x64-Release/CMakeFiles/CMakeTmp
+Change Dir: C:/Users/student/Desktop/temp/CHM3-master/out/build/x64-Release/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_8741e && [1/2] Building CXX object CMakeFiles\cmTC_8741e.dir\CMakeCXXCompilerABI.cpp.obj
-[2/2] Linking CXX executable cmTC_8741e.exe
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Professional/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_19ac2 && [1/2] Building CXX object CMakeFiles\cmTC_19ac2.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_19ac2.exe
 
 
 

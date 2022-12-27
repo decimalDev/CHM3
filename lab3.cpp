@@ -47,59 +47,64 @@ std::vector<double> Uniform_grid(double a, double b, int n) { //строит р�
 	return X;
 }
 
-void task3() {
-	/*
-	vector<vector<double>> Av = { {5, 8, 1, -1}, {8, -2, 6, 3}, {1, 6, 1, 2}, {-1, 3, 2, 0 } };//symmetric matrix
-	Matrix A(Av);
-	vector<double> Yv = { 2, -7, -5, 2 };
-	Vector Y(Yv);
-	Vector X = SRM(A, Y);
-	X.print();
-	*/
-	std::vector<double> grid = Uniform_grid(0,2,20);
-	int n = 200;
-	Vector coef = Least_Squares_Method(grid,0,2,n);
-	grid = Uniform_grid(0, 2, 1000);
-
-	string FileName = "task3/example";
-	FileName += to_string(0);
-	FileName += ".txt";
-	ofstream fout;
-	fout.open(FileName, ios::out);
-
-	//FILE* out;
-	//fopen_s(&out,"task3/example.txt","w");
-	for (int i = 0; i <= 1000;i++) {
-		fout << grid[i] << " " << Aproximation(grid[i], coef) << endl;
-		//fprintf(out,"%.8lf %.8lf\n",grid[i], Aproximation(grid[i],coef));
-	}
-	fout.close();
-
-	for (n = 2; n < 13; n++){
-	Vector coef_temp = Least_Squares_Method(grid, 0, 2, n);
-	FileName = "task3/draw";
-	FileName += to_string(n);
-	FileName += ".txt";
-	fout.open(FileName, ios::out);
-	fout.precision(8);
-	for (int i = 0; i <= 1000; i++) {
-		fout << grid[i] << " " << Aproximation(grid[i], coef_temp) << endl;
-		//fprintf(out,"%.8lf %.8lf\n",grid[i], Aproximation(grid[i],coef));
-	}
-	fout.close();
-	}
-	/*
-	char* file = (char*) malloc(100);
-	file = "task3/.txt"
-	for (n = 1; n < 13; n++) {
-		fopen_s(&out, "task3/example.txt", "w");
-	}
-	*/
-}
+//void task3() {
+//	/*
+//	vector<vector<double>> Av = { {5, 8, 1, -1}, {8, -2, 6, 3}, {1, 6, 1, 2}, {-1, 3, 2, 0 } };//symmetric matrix
+//	Matrix A(Av);
+//	vector<double> Yv = { 2, -7, -5, 2 };
+//	Vector Y(Yv);
+//	Vector X = SRM(A, Y);
+//	X.print();
+//	*/
+//	std::vector<double> grid = Uniform_grid(0,2,20);
+//	int n = 200;
+//	Vector coef = Least_Squares_Method(grid,0,2,n);
+//	grid = Uniform_grid(0, 2, 1000);
+//
+//	string FileName = "task3/example";
+//	FileName += to_string(0);
+//	FileName += ".txt";
+//	ofstream fout;
+//	fout.open(FileName, ios::out);
+//
+//	//FILE* out;
+//	//fopen_s(&out,"task3/example.txt","w");
+//	for (int i = 0; i <= 1000;i++) {
+//		fout << grid[i] << " " << Aproximation(grid[i], coef) << endl;
+//		//fprintf(out,"%.8lf %.8lf\n",grid[i], Aproximation(grid[i],coef));
+//	}
+//	fout.close();
+//
+//	for (n = 2; n < 13; n++){
+//	Vector coef_temp = Least_Squares_Method(grid, 0, 2, n);
+//	FileName = "task3/draw";
+//	FileName += to_string(n);
+//	FileName += ".txt";
+//	fout.open(FileName, ios::out);
+//	fout.precision(8);
+//	for (int i = 0; i <= 1000; i++) {
+//		fout << grid[i] << " " << Aproximation(grid[i], coef_temp) << endl;
+//		//fprintf(out,"%.8lf %.8lf\n",grid[i], Aproximation(grid[i],coef));
+//	}
+//	fout.close();
+//	}
+//	/*
+//	char* file = (char*) malloc(100);
+//	file = "task3/.txt"
+//	for (n = 1; n < 13; n++) {
+//		fopen_s(&out, "task3/example.txt", "w");
+//	}
+//	*/
+//}
 
 void task4() {
-	vector<vector<double>> Diag5 = { {1, -1, 2}, {2, 2, -2, 3}, {-1, 1, 1, -1, 4}, {2, -2, 2, 2, -5}, {1, -1, 1, 6}, {2, 2, -7} };
+	//Generate_D5(10, 3);
+	vector < vector < double >> Diag5 = { {1, -1, 2}, {2, 2, -2, 3}, {-1, 1, 1, -1, 4}, {2, -2, 2, 2, -5}, {1, -1, 1, 6}, {2, 2, -7} };
 	vector<double> Y5 = { 2, 1, 2, 1, 2, 1 };
+
+	/*vector<vector<double>> Diag5 = Generate_D5(10, 3);
+	vector<double> Y5;
+	Y5.resize(10, 1);*/
 	vector<double> X5;
 	X5 = D5(Diag5, Y5);
 	for (double x : X5)
@@ -116,7 +121,8 @@ int main()
 	cout.width(10);
 	//task1();
 	//task2();
-	task3();
-	//task4();
+	//task3();
+	task4();
+	//task_3_2();
 	return 0;
 }

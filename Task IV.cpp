@@ -1,6 +1,7 @@
 #include "Task IV.h"
+#include<ctime>
 
-vector<double> D5(vector<vector<double>>& M, vector<double>& X) //подаём на вход вектор вида {
+//подаём на вход вектор вида {
 //																				{c_0, d_0, e_0},
 //																				{b_1, c_1, d_1, e_1},
 //																				{a_2, b_2, c_2, d_2, e_2},
@@ -10,6 +11,7 @@ vector<double> D5(vector<vector<double>>& M, vector<double>& X) //подаём на вход
 //																				{a_(n-1), b_(n-1), c_(n-1), d_(n-1)},
 //																				{a_n, b_n, c_n}
 //																			}
+vector<double> D5(vector<vector<double>>& M, vector<double>& X)
 {
 	int N = M.size() - 1;
 	Matrix ABC(N + 1, 3); //прогоночные коэффициенты
@@ -57,3 +59,62 @@ vector<double> D5(vector<vector<double>>& M, vector<double>& X) //подаём на вход
 
 	return Y;
 }
+
+void fill_randomly(vector<double>& A)
+{
+	for (int i = 0; i < A.size(); i++) A[i] = -10 + rand() % 21;
+	
+}
+
+vector<vector<double>> Generate_D5(int N, double q) // N -- число строк, q -- параметр, с помощью которого обеспечиваем диагональное преобладание
+{
+	srand(time(NULL));
+	vector<vector<double>> A(N);
+
+	A[0].resize(3);
+	fill_randomly(A[0]);
+	double sum = 0;
+	sum += abs(A[0][1]) + abs(A[0][2]);
+	A[0][0] = q * sum;
+	for (double a : A[0]) cout << a << " ";
+	cout << endl;
+
+
+	A[1].resize(4);
+	fill_randomly(A[1]);
+	sum = 0;
+	sum += abs(A[1][0]) + abs(A[1][2]) + abs(A[1][3]);
+	A[1][1] = q * sum;
+	for (double a : A[1]) cout << a << " ";
+	cout << endl;
+
+	for (int i = 2; i < N - 2; i++)
+	{
+		A[i].resize(5);
+		fill_randomly(A[i]);
+		A[i][2] = (abs(A[i][0]) + abs(A[i][1]) + (abs(A[i][3]))) * q;
+		for (double a : A[i]) cout << a << " ";
+		cout << endl;
+	}
+
+
+	A[N - 2].resize(4);
+	fill_randomly(A[N - 2]);
+	sum = 0;
+	sum += abs(A[N - 2][0]) + abs(A[N - 2][1]) + abs(A[N - 2][3]);
+	A[N - 2][2] = q * sum;
+	for (double a : A[N - 2]) cout << a << " ";
+	cout << endl;
+
+	A[N-1].resize(3);
+	fill_randomly(A[N - 1]);
+	sum = 0;
+	sum += abs(A[N - 1][0]) + abs(A[N - 1][1]);
+	A[N - 1][2] = q * sum;
+	for (double a : A[N - 1]) cout << a << " ";
+	cout << endl;
+	cout << endl;
+
+	return A;
+}
+
