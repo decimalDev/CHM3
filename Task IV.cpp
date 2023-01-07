@@ -13,7 +13,18 @@
 //																			}
 vector<double> D5(vector<vector<double>>& M, vector<double>& X)
 {
+
 	int N = M.size() - 1;
+	M[0][1] *= -1;
+	M[1][0] *= -1;
+	M[1][2] *= -1;
+	M[N][1] *= -1;
+	for (int i = 2; i <= N - 1; i++)
+	{
+		M[i][1] *= -1;
+		M[i][3] *= -1;
+	}
+
 	Matrix ABC(N + 1, 3); //прогоночные коэффициенты
 	ABC.setelement(1, 1, M[0][1] / M[0][0]); // A_1 = d_0/c_0
 	ABC.setelement(1, 2, M[0][2] / M[0][0]); // B_1 = e_0/c_0

@@ -99,12 +99,12 @@ std::vector<double> Uniform_grid(double a, double b, int n) { //строит р�
 
 void task4() {
 	//Generate_D5(10, 3);
-	vector < vector < double >> Diag5 = { {1, -1, 2}, {2, 2, -2, 3}, {-1, 1, 1, -1, 4}, {2, -2, 2, 2, -5}, {1, -1, 1, 6}, {2, 2, -7} };
-	vector<double> Y5 = { 2, 1, 2, 1, 2, 1 };
+	/*vector < vector < double >> Diag5 = { {1, -1, 2}, {2, 2, -2, 3}, {-1, 1, 1, -1, 4}, {2, -2, 2, 2, -5}, {1, -1, 1, 6}, {2, 2, -7} };
+	vector<double> Y5 = { 2, 1, 2, 1, 2, 1 };*/
 
-	/*vector<vector<double>> Diag5 = Generate_D5(10, 3);
+	vector<vector<double>> Diag5 = Generate_D5(10, 3);
 	vector<double> Y5;
-	Y5.resize(10, 1);*/
+	Y5.resize(10, 1);
 	vector<double> X5;
 	X5 = D5(Diag5, Y5);
 	for (double x : X5)
@@ -119,10 +119,10 @@ int main()
 	cout.setf(ios::fixed);
 	cout.precision(5);
 	cout.width(10);
-	//task1();
-	//task2();
+	task1();
+	task2();
 	//task3();
 	task4();
-	//task_3_2();
+	task_3_2();
 	return 0;
 }
